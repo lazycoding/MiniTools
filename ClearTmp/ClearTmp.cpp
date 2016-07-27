@@ -73,5 +73,21 @@ TEST(ExtFilter, match)
     CHECK(ef.Match(wf));
 }
 
+TEST(EraseAction, func)
+{
+    shared_ptr<IAction> act = make_shared<EraseAction>();
+    WasteFile wf("D:\\1.txt", 10);
+    try
+    {
+        bool erased = act->Act(wf);
+        CHECK(erased);
+    }
+    catch (const std::exception& except)
+    {
+        cerr << except.what() << endl;
+        static const bool exception_occur = false;
+        CHECK(exception_occur);
+    }
+}
 #endif // RUN_TEST
 

@@ -10,20 +10,24 @@
 using namespace std;
 using namespace ClearTmp;
 
-
+#undef RUN_TEST
 #ifndef RUN_TEST
 unique_ptr<Cleanner> gcleanner;
 int main(int argc, char** argv)
 {
-    shared_ptr<IFilter> filter(new ExtFilter{ ".clw", ".plg", ".ncb", ".opt" });
+    shared_ptr<IFilter> filter(new ExtFilter{ TEXT(".clw"), TEXT(".plg"), TEXT(".ncb"), TEXT(".opt"), TEXT(".aps") });
 
     shared_ptr<IAction> action = make_shared<EraseAction>();
 
-    shared_ptr<IAction> wrapper = make_shared<Logger>(cout, action);
+    std::locale loc("");
+    std::wcout.imbue(loc);
+    shared_ptr<IAction> wrapper = make_shared<Logger>(wcout, action);
 
     gcleanner = make_unique<Cleanner>(filter);
 
-    gcleanner->Clean(R"(d:\Code\depot\Dbas\BugFix\DBas60_Development\BroadCast\Projects.tmp\Debug\)", wrapper);
+    gcleanner->Clean(TEXT("d:\\Code\\depot\\Dbas\\BugFix\\DBas60_Development\\BroadCast\\"), wrapper);
+
+    system("pause");
 
     return 0;
 }

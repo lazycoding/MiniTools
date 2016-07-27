@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Logger.h"
 
+
 namespace ClearTmp {
 
     Logger::Logger(std::basic_ostream<TCHAR>& output, std::shared_ptr<IAction>& decorated)
@@ -15,10 +16,11 @@ namespace ClearTmp {
 
     bool Logger::Act(const WasteFile & waste_file)
     {
-        setlocale(LC_ALL, "zh-CN");
-        output_ << "prepare to action "
-            << waste_file.FullName() << " "
-            << waste_file.Ext() << " "
+        std::locale loc("");
+        output_.imbue(loc);
+        output_ << TEXT("prepare to action:\r\n")
+            << waste_file.FullName() << TEXT(" ")
+            << waste_file.Ext() << TEXT(" ")
             << waste_file.Size() << std::endl;
         bool result = false;
         try
@@ -30,10 +32,21 @@ namespace ClearTmp {
         }
         catch (const std::exception& except)
         {
-            output_ << "exception:" << except.what() << std::endl;
+            t_string log;
+#ifdef _UNICODE
+            std::string tmp = except.what();
+            log.resize(tmp.length());
+            size_t converted;
+            mbstowcs_s(&converted, &log[0], log.length(), except.what(), tmp.length());
+#else
+            log = except.what();
+#endif            
+            output_ << TEXT("exception:") << log << std::endl;
+
+            return false;
         }
        
-        output_ << "completed " << (result ? "successfully" : "unsuccessfully") << std::endl;
+        output_ << TEXT("action completed ") << (result ? TEXT("successfully") : TEXT("unsuccessfully")) << std::endl;
 
         return result;
     }

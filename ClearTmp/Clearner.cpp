@@ -24,7 +24,7 @@ namespace ClearTmp
         {
             for each (auto file in waste_files_)
             {
-                action->Act(file);
+                action->Act(file);                                         
             }
         }
 

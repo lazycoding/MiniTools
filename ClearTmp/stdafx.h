@@ -17,7 +17,7 @@
 #include <vector>
 #include <algorithm>
 #include <memory>
-
+#include <exception>
 #include <windows.h>
 #define RUN_TEST
 #undef __TEXT

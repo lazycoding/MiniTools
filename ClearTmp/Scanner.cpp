@@ -28,7 +28,7 @@ namespace ClearTmp
                 filesize.HighPart = finddata.nFileSizeHigh;
 
                 WasteFile file;
-                file.FullName(path + finddata.cFileName);
+                file.FullName(searchPath + finddata.cFileName);
                 file.Size(filesize.QuadPart);
 
                 if (!filter_ || filter_->Match(file))

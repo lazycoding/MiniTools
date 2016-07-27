@@ -98,5 +98,8 @@
     <ClCompile Include="..\CppUnitLite_stl\TestResult.cpp">
       <Filter>Cppunitlite</Filter>
     </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

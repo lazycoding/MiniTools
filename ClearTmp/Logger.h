@@ -6,7 +6,7 @@ namespace ClearTmp
     class Logger:public IAction
     {
     public:
-        Logger(std::ostream& output, std::shared_ptr<IAction>& decorated);
+        Logger(std::basic_ostream<TCHAR>& output, std::shared_ptr<IAction>& decorated);
         ~Logger();
 
         // Í¨¹ý IAction ¼Ì³Ð
@@ -14,7 +14,7 @@ namespace ClearTmp
 
     private:
         std::shared_ptr<IAction>& decorated_;
-        std::ostream& output_;
+        std::basic_ostream<TCHAR>& output_;
     };
 
 

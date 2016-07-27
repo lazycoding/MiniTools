@@ -4,17 +4,17 @@
 namespace ClearTmp
 {
 
-    ExtFilter::ExtFilter(std::initializer_list<std::string> bl)
+    ExtFilter::ExtFilter(std::initializer_list<t_string> bl)
     {
         CopyStringVecUpper(bl, black_list_);
     }
 
-    void ExtFilter::Blacklist(const std::vector<std::string>& black_list)
+    void ExtFilter::Blacklist(const std::vector<t_string>& black_list)
     {
         CopyStringVecUpper(black_list, black_list_);
     }
 
-    const std::vector<std::string>& ExtFilter::Blacklist() const
+    const std::vector<t_string>& ExtFilter::Blacklist() const
     {
         return black_list_;
     }
@@ -26,9 +26,9 @@ namespace ClearTmp
             return false;
         }
 
-        auto found = std::find_if(black_list_.begin(), black_list_.end(), [&](const std::string& ext)->bool {
-            std::string ext_upper = wf.Ext();
-            std::transform(ext_upper.begin(), ext_upper.end(), ext_upper.begin(), toupper);
+        auto found = std::find_if(black_list_.begin(), black_list_.end(), [&](const t_string& ext)->bool {
+            t_string ext_upper = wf.Ext();
+            std::transform(ext_upper.begin(), ext_upper.end(), ext_upper.begin(), _totupper);
             return ext.compare(ext_upper) == 0;
         });
 

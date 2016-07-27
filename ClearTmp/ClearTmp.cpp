@@ -32,6 +32,7 @@ int main(int argc, char** argv)
 
 #ifdef RUN_TEST
 #include "../CppUnitLite_stl/TestHarness.h"
+#include "Scanner.h"
 
 int main()
 {
@@ -43,40 +44,40 @@ int main()
 
 TEST(WasteFile, ctor)
 {
-    WasteFile wf("D:\\1.txt", 10);
-    CHECK(wf.Name().compare("1.txt") == 0);
-    CHECK(wf.Ext().compare(".txt") == 0);
+    WasteFile wf(TEXT("D:\\1.txt"), 10);
+    CHECK(wf.Name().compare(TEXT("1.txt")) == 0);
+    CHECK(wf.Ext().compare(TEXT(".txt")) == 0);
 }
 
 
 TEST(ExtFilter, ctor)
 {
-    ExtFilter ef{ ".clw", ".plg", ".ncb", ".opt" };
+    ExtFilter ef{ TEXT(".clw"), TEXT(".plg"), TEXT(".ncb"), TEXT(".opt") };
     auto bl = ef.Blacklist();
     for each (auto var in bl)
     {
-        cout << var << " ";
+        wcout << var << TEXT(" ");
     }
     cout << endl;
     CHECK_LONGS_EQUAL(4, bl.size());
 }
 
-TEST(ExtFilter, match)
+TEST(ExtFilter, func)
 {
-    ExtFilter ef{ ".clw", ".plg", ".ncb", ".opt" };
+    ExtFilter ef{ TEXT(".clw"), TEXT(".plg"), TEXT(".ncb"), TEXT(".opt") };
     WasteFile wf;
-    wf.FullName("D:\\abc.cpp");
+    wf.FullName(TEXT("D:\\abc.cpp"));
     
     CHECK(!ef.Match(wf));
 
-    wf.FullName("D:\\eee.clw");
+    wf.FullName(TEXT("D:\\eee.clw"));
     CHECK(ef.Match(wf));
 }
 
 TEST(EraseAction, func)
 {
     shared_ptr<IAction> act = make_shared<EraseAction>();
-    WasteFile wf("D:\\1.txt", 10);
+    WasteFile wf(TEXT("D:\\1.txt"), 10);
     try
     {
         bool erased = act->Act(wf);
@@ -87,6 +88,22 @@ TEST(EraseAction, func)
         cerr << except.what() << endl;
         static const bool exception_occur = false;
         CHECK(exception_occur);
+    }
+}
+
+TEST(Scanner, func)
+{
+    Scanner ascanner;
+    vector<WasteFile> files;
+    ascanner.Wildcards(TEXT("*.*"));
+    ascanner.Traverse(TEXT("d:\\Code\\Projects\\ClearTmp\\"), files);
+    
+    /*setlocale(LC_ALL, "zh-CN");*/
+    std::locale loc("");
+    std::wcout.imbue(loc);
+    for each (auto file in files)
+    {
+        wcout << file.FullName() << endl;
     }
 }
 #endif // RUN_TEST

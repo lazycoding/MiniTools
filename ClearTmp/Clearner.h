@@ -16,7 +16,7 @@ namespace ClearTmp
         Cleanner(const Cleanner&) = delete;
         Cleanner operator=(const Cleanner&) = delete;
 
-        bool Clean(const std::string& path, const std::shared_ptr<IAction>& action);
+        bool Clean(const t_string& path, const std::shared_ptr<IAction>& action);
 
     private:
         std::vector<WasteFile> waste_files_;

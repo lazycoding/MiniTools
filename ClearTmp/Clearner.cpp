@@ -12,7 +12,7 @@ namespace ClearTmp
         :scanner_(std::make_shared<Scanner>(filter))
     {
     }
-    bool Cleanner::Clean(const std::string& path, const std::shared_ptr<IAction>& action)
+    bool Cleanner::Clean(const t_string& path, const std::shared_ptr<IAction>& action)
     {
         return false;
     }

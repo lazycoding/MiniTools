@@ -3,7 +3,7 @@
 
 namespace ClearTmp {
 
-    Logger::Logger(std::ostream& output, std::shared_ptr<IAction>& decorated)
+    Logger::Logger(std::basic_ostream<TCHAR>& output, std::shared_ptr<IAction>& decorated)
         :decorated_(decorated), output_(output)
     {
     }
@@ -15,6 +15,7 @@ namespace ClearTmp {
 
     bool Logger::Act(const WasteFile & waste_file)
     {
+        setlocale(LC_ALL, "zh-CN");
         output_ << "prepare to action "
             << waste_file.FullName() << " "
             << waste_file.Ext() << " "

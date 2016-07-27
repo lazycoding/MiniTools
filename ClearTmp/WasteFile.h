@@ -7,40 +7,40 @@ namespace ClearTmp
     public:
         WasteFile() :size_(0) {}
 
-        WasteFile(const std::string& full_name, long size)
+        WasteFile(const t_string& full_name, __int64 size)
             :full_name_(full_name), size_(size)
         {
             ParseNameAndExt();
         }
         ~WasteFile() = default;
 
-        const std::string& FullName() const
+        const t_string& FullName() const
         {
             return full_name_;
         }
 
-        void FullName(const std::string& full_name)
+        void FullName(const t_string& full_name)
         {
             full_name_ = full_name;
             ParseNameAndExt();
         }
 
-        long Size() const
+        __int64 Size() const
         {
             return size_;
         }
 
-        void Size(long size)
+        void Size(__int64 size)
         {
             size_ = size;
         }
 
-        const std::string& Name() const
+        const t_string& Name() const
         {         
             return name_;
         }
 
-        const std::string& Ext() const
+        const t_string& Ext() const
         {         
             return ext_;
         }
@@ -52,12 +52,12 @@ namespace ClearTmp
             {
                 return;
             }            
-            auto result = full_name_.rfind('\\');
-            if (result != std::string::npos)
+            auto result = full_name_.rfind(TEXT('\\'));
+            if (result != t_string::npos)
             {
                 name_ = full_name_.substr(result+1);
-                auto found = name_.find_first_of('.');
-                if (found != std::string::npos)
+                auto found = name_.find_first_of(TEXT('.'));
+                if (found != t_string::npos)
                 {
                     ext_ = name_.substr(found);
                 }
@@ -66,10 +66,10 @@ namespace ClearTmp
 
 
     private:
-        std::string full_name_;
-        std::string name_;
-        std::string ext_;
-        long size_;
+        t_string full_name_;
+        t_string name_;
+        t_string ext_;
+        __int64 size_;
     };
 
 }

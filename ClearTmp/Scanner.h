@@ -7,7 +7,10 @@ namespace ClearTmp
     class Scanner
     {
     public:
-        Scanner(std::shared_ptr<IFilter>& ptr):filter_(ptr)
+        Scanner() :wildcards_(TEXT("*.*")) {}
+
+        Scanner(std::shared_ptr<IFilter>& ptr)
+            :filter_(ptr), wildcards_(TEXT("*.*"))
         {
 
         }
@@ -15,10 +18,12 @@ namespace ClearTmp
 
         Scanner(const Scanner& other) = delete;
         const Scanner& operator=(const Scanner& rhs) = delete;
+        
+        int Traverse(const t_string & path, std::vector<WasteFile>& waste_files);
 
-        int Traverse(const std::string& path, std::vector<WasteFile>& waste_files);
-
+        void Wildcards(const t_string& wildcards);
     private:
         std::shared_ptr<IFilter> filter_;
+        t_string wildcards_;
     };
 }

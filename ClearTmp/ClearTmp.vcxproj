@@ -151,6 +151,7 @@
     <ClInclude Include="..\CppUnitLite_stl\TestRegistry.h" />
     <ClInclude Include="..\CppUnitLite_stl\TestResult.h" />
     <ClInclude Include="Clearner.h" />
+    <ClInclude Include="ClearTmp.h" />
     <ClInclude Include="EraseAction.h" />
     <ClInclude Include="ExtFilter.h" />
     <ClInclude Include="IAction.h" />

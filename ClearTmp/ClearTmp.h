@@ -1,0 +1,1 @@
+int LoadSuffix(TCHAR ** argv);

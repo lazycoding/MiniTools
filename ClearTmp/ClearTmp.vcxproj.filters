@@ -66,6 +66,9 @@
     <ClInclude Include="..\CppUnitLite_stl\TestResult.h">
       <Filter>Cppunitlite</Filter>
     </ClInclude>
+    <ClInclude Include="ClearTmp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

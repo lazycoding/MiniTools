@@ -7,15 +7,67 @@
 #include "EraseAction.h"
 #include "Logger.h"
 #include <iostream>
+#include <fstream>
+#include <codecvt>
+#include <sstream>
 using namespace std;
 using namespace ClearTmp;
 
-#undef RUN_TEST
+int LoadUtf8File(const t_string& file_name, vector<t_string>& suffixs)
+{
+    wifstream ifs;
+    auto utf8 = locale(locale(""), new codecvt_utf8<wchar_t>());
+    ifs.imbue(utf8);
+    ifs.open(file_name, ios::binary);
+    if (!ifs.good())
+    {
+        return 0;
+    }
+
+    size_t size = (size_t)ifs.seekg(0,ios::end).tellg();
+    t_string content;
+    content.resize(size);
+    ifs.seekg(0, ios::beg);
+    ifs.read(&content[0], size);
+
+    replace(content.begin(), content.end(), TEXT('\r'), TEXT('\n'));
+
+    wstringstream wss(content);
+
+    t_string suffix;
+    while (getline(wss, suffix))
+    {
+        if (!suffix.empty())
+        {
+            suffixs.push_back(suffix);
+        }        
+    }
+
+    ifs.close();
+    return 1;
+}
+
+//#undef RUN_TEST
 #ifndef RUN_TEST
 unique_ptr<Cleanner> gcleanner;
-int main(int argc, char** argv)
+
+void Usage();
+
+int main(int argc, TCHAR** argv)
 {
-    shared_ptr<IFilter> filter(new ExtFilter{ TEXT(".clw"), TEXT(".plg"), TEXT(".ncb"), TEXT(".opt"), TEXT(".aps") });
+    if (argc != 3)
+    {
+        Usage();
+        return 1;
+    }
+    
+    vector<t_string> suffixs;
+    if (!LoadUtf8File(argv[3], suffixs))
+    {
+        return 2;
+    }
+
+    shared_ptr<IFilter> filter = make_shared<ExtFilter>(suffixs);
 
     shared_ptr<IAction> action = make_shared<EraseAction>();
 
@@ -25,18 +77,20 @@ int main(int argc, char** argv)
 
     gcleanner = make_unique<Cleanner>(filter);
 
-    gcleanner->Clean(TEXT("d:\\Code\\depot\\Dbas\\BugFix\\DBas60_Development\\BroadCast\\"), wrapper);
+    gcleanner->Clean(argv[2], wrapper);
 
     system("pause");
 
     return 0;
 }
+
 #endif
 
 
 #ifdef RUN_TEST
 #include "../CppUnitLite_stl/TestHarness.h"
 #include "Scanner.h"
+#include "ClearTmp.h"
 
 int main()
 {
@@ -109,6 +163,13 @@ TEST(Scanner, func)
     {
         wcout << file.FullName() << endl;
     }
+}
+
+TEST(LoadUtf8File, func)
+{
+    vector<t_string> suff;
+    LoadUtf8File(TEXT("D:\\2.txt"), suff);
+    CHECK(suff.size()>0);
 }
 #endif // RUN_TEST
 

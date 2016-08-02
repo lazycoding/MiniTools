@@ -13,10 +13,11 @@
 using namespace std;
 using namespace ClearTmp;
 
+
 int LoadUtf8File(const t_string& file_name, vector<t_string>& suffixs)
 {
     wifstream ifs;
-    auto utf8 = locale(locale(""), new codecvt_utf8<wchar_t>());
+    auto utf8 = locale(locale(""), new codecvt_utf8<wchar_t, 0x10ffff, consume_header>());
     ifs.imbue(utf8);
     ifs.open(file_name, ios::binary);
     if (!ifs.good())
@@ -25,7 +26,7 @@ int LoadUtf8File(const t_string& file_name, vector<t_string>& suffixs)
     }
 
     size_t size = (size_t)ifs.seekg(0,ios::end).tellg();
-    t_string content;
+    wstring content;
     content.resize(size);
     ifs.seekg(0, ios::beg);
     ifs.read(&content[0], size);
@@ -34,12 +35,22 @@ int LoadUtf8File(const t_string& file_name, vector<t_string>& suffixs)
 
     wstringstream wss(content);
 
-    t_string suffix;
+    wstring suffix;
     while (getline(wss, suffix))
     {
         if (!suffix.empty())
         {
+#ifdef _UNICODE
             suffixs.push_back(suffix);
+#else
+            size_t converted;
+            setlocale(LC_ALL, "zh-CN");
+            string str;
+            str.resize(suffix.size()*2);
+            auto ret = wcstombs_s(&converted, &str[0], str.length(), suffix.c_str(), _TRUNCATE);
+            suffixs.push_back(str);
+#endif // _UNICODE
+                        
         }        
     }
 
@@ -47,7 +58,7 @@ int LoadUtf8File(const t_string& file_name, vector<t_string>& suffixs)
     return 1;
 }
 
-//#undef RUN_TEST
+#undef RUN_TEST
 #ifndef RUN_TEST
 unique_ptr<Cleanner> gcleanner;
 
@@ -67,7 +78,7 @@ int main(int argc, TCHAR** argv)
         return 2;
     }
 
-    shared_ptr<IFilter> filter = make_shared<ExtFilter>(suffixs);
+    shared_ptr<IFilter> filter = make_shared<ExtFilter>();
 
     shared_ptr<IAction> action = make_shared<EraseAction>();
 
@@ -84,6 +95,13 @@ int main(int argc, TCHAR** argv)
     return 0;
 }
 
+void Usage()
+{
+    std::locale loc("");
+    std::wcout.imbue(loc);
+    wcout << L"Usage:\tcleartmp [target path] [filter file]" << endl;
+    wcout << L"      \tFilter file is needed to be encoded by utf8." << endl;
+}
 #endif
 
 
@@ -110,19 +128,24 @@ TEST(WasteFile, ctor)
 
 TEST(ExtFilter, ctor)
 {
-    ExtFilter ef{ TEXT(".clw"), TEXT(".plg"), TEXT(".ncb"), TEXT(".opt") };
-    auto bl = ef.Blacklist();
+    //ExtFilter ef{ TEXT(".clw"), TEXT(".plg"), TEXT(".ncb"), TEXT(".opt") };
+    //auto bl = ef.Blacklist();
+    vector<t_string> list{ TEXT(".clw"), TEXT(".plg"), TEXT(".ncb"), TEXT(".opt") };
+    ExtFilter ef(list);
+    /*
     for each (auto var in bl)
     {
         wcout << var << TEXT(" ");
     }
     cout << endl;
+    */
     CHECK_LONGS_EQUAL(4, bl.size());
 }
 
 TEST(ExtFilter, func)
 {
-    ExtFilter ef{ TEXT(".clw"), TEXT(".plg"), TEXT(".ncb"), TEXT(".opt") };
+    vector<t_string> list{ TEXT(".clw"), TEXT(".plg"), TEXT(".ncb"), TEXT(".opt") };
+    ExtFilter ef(list);
     WasteFile wf;
     wf.FullName(TEXT("D:\\abc.cpp"));
     
@@ -157,12 +180,14 @@ TEST(Scanner, func)
     ascanner.Traverse(TEXT("d:\\Code\\Projects\\ClearTmp\\"), files);
     
     /*setlocale(LC_ALL, "zh-CN");*/
+    /*
     std::locale loc("");
     std::wcout.imbue(loc);
     for each (auto file in files)
     {
         wcout << file.FullName() << endl;
     }
+    */
 }
 
 TEST(LoadUtf8File, func)

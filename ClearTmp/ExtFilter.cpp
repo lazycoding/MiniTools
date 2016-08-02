@@ -4,12 +4,7 @@
 namespace ClearTmp
 {
 
-    ExtFilter::ExtFilter(std::initializer_list<t_string> bl)
-    {
-        CopyStringVecUpper(bl, black_list_);
-    }
-
-    void ExtFilter::Blacklist(const std::vector<t_string>& black_list)
+    ExtFilter::ExtFilter(const std::vector<t_string>& black_list)
     {
         CopyStringVecUpper(black_list, black_list_);
     }

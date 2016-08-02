@@ -7,12 +7,11 @@ namespace ClearTmp {
     public:
         ExtFilter() = default;
         ~ExtFilter() = default;
-        ExtFilter(std::initializer_list<t_string> bl);
+        ExtFilter(const std::vector<t_string>& black_list);
 
         ExtFilter(const ExtFilter&) = delete;
         ExtFilter operator=(const ExtFilter&) = delete;
 
-        void Blacklist(const std::vector<t_string>& black_list);
         const std::vector<t_string>& Blacklist() const;
 
         // Í¨¹ý IFilter ¼Ì³Ð

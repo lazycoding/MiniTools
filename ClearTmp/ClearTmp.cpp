@@ -25,7 +25,7 @@ int LoadUtf8File(const t_string& file_name, vector<t_string>& suffixs)
         return 0;
     }
 
-    size_t size = (size_t)ifs.seekg(0,ios::end).tellg();
+    size_t size = (size_t)ifs.seekg(0, ios::end).tellg();
     wstring content;
     content.resize(size);
     ifs.seekg(0, ios::beg);
@@ -46,12 +46,12 @@ int LoadUtf8File(const t_string& file_name, vector<t_string>& suffixs)
             size_t converted;
             setlocale(LC_ALL, "zh-CN");
             string str;
-            str.resize(suffix.size()*2);
+            str.resize(suffix.size() * 2);
             auto ret = wcstombs_s(&converted, &str[0], str.length(), suffix.c_str(), _TRUNCATE);
             suffixs.push_back(str);
 #endif // _UNICODE
-                        
-        }        
+
+        }
     }
 
     ifs.close();
@@ -66,29 +66,37 @@ void Usage();
 
 int main(int argc, TCHAR** argv)
 {
-    if (argc != 3)
+    shared_ptr<IFilter> filter;
+    shared_ptr<IAction> action;
+
+    if (argc == 3)
+    {
+        vector<t_string> suffixs;
+        if (!LoadUtf8File(argv[3], suffixs))
+        {
+            return 2;
+        }
+
+        filter = make_shared<ExtFilter>();
+        shared_ptr<IAction> inner_action = make_shared<EraseAction>();
+
+        std::locale loc("");
+        std::wcout.imbue(loc);
+        action = make_shared<Logger>(wcout, inner_action);
+    }
+    else if (argc == 2)
+    {
+
+    }
+    else
     {
         Usage();
         return 1;
     }
-    
-    vector<t_string> suffixs;
-    if (!LoadUtf8File(argv[3], suffixs))
-    {
-        return 2;
-    }
-
-    shared_ptr<IFilter> filter = make_shared<ExtFilter>();
-
-    shared_ptr<IAction> action = make_shared<EraseAction>();
-
-    std::locale loc("");
-    std::wcout.imbue(loc);
-    shared_ptr<IAction> wrapper = make_shared<Logger>(wcout, action);
 
     gcleanner = make_unique<Cleanner>(filter);
 
-    gcleanner->Clean(argv[2], wrapper);
+    gcleanner->Clean(argv[2], action);
 
     system("pause");
 
@@ -99,7 +107,7 @@ void Usage()
 {
     std::locale loc("");
     std::wcout.imbue(loc);
-    wcout << L"Usage:\tcleartmp [target path] [filter file]" << endl;
+    wcout << L"Usage:\tcleartmp target_path [filter file]" << endl;
     wcout << L"      \tFilter file is needed to be encoded by utf8." << endl;
 }
 #endif
@@ -148,7 +156,7 @@ TEST(ExtFilter, func)
     ExtFilter ef(list);
     WasteFile wf;
     wf.FullName(TEXT("D:\\abc.cpp"));
-    
+
     CHECK(!ef.Match(wf));
 
     wf.FullName(TEXT("D:\\eee.clw"));
@@ -178,7 +186,7 @@ TEST(Scanner, func)
     vector<WasteFile> files;
     ascanner.Wildcards(TEXT("*.*"));
     ascanner.Traverse(TEXT("d:\\Code\\Projects\\ClearTmp\\"), files);
-    
+
     /*setlocale(LC_ALL, "zh-CN");*/
     /*
     std::locale loc("");
@@ -194,7 +202,7 @@ TEST(LoadUtf8File, func)
 {
     vector<t_string> suff;
     LoadUtf8File(TEXT("D:\\2.txt"), suff);
-    CHECK(suff.size()>0);
+    CHECK(suff.size() > 0);
 }
 #endif // RUN_TEST
 

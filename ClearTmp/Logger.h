@@ -15,6 +15,7 @@ namespace ClearTmp
     private:
         std::shared_ptr<IAction>& decorated_;
         std::basic_ostream<TCHAR>& output_;
+        double logger_size_;
     };
 
 

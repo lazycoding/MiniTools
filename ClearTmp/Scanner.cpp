@@ -14,6 +14,7 @@ namespace ClearTmp
         {
             if (finddata.cFileName[0] == TEXT('.'))
             {
+                // . and .. is directory
                 //continue;
             }
             else if (finddata.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)

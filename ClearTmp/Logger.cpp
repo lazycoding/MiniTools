@@ -5,13 +5,14 @@
 namespace ClearTmp {
 
     Logger::Logger(std::basic_ostream<TCHAR>& output, std::shared_ptr<IAction>& decorated)
-        :decorated_(decorated), output_(output)
+        :decorated_(decorated), output_(output), logger_size_(0.0)
     {
     }
 
 
     Logger::~Logger()
     {
+        output_ << TEXT("Total Erase: ") << logger_size_ / 1024.0 << TEXT("KB.") << std::endl;
     }
 
     bool Logger::Act(const WasteFile & waste_file)
@@ -28,6 +29,11 @@ namespace ClearTmp {
             if (decorated_)
             {
                 result = decorated_->Act(waste_file);
+            }
+
+            if (result)
+            {
+                logger_size_ += waste_file.Size() / 1024.0;
             }
         }
         catch (const std::exception& except)

@@ -6,6 +6,6 @@ namespace ClearTmp
     {
     public:
         virtual ~IAction() = default;
-        virtual bool Act(const WasteFile& waste_file) = 0;
+        virtual bool Act(const Archive& waste_file) = 0;
     };
 }

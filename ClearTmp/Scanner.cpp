@@ -5,7 +5,7 @@ using namespace std;
 namespace ClearTmp 
 {
     
-    int Scanner::Traverse(const t_string & path, std::vector<WasteFile>& waste_files)
+    int Scanner::Traverse(const t_string & path, std::vector<Archive>& waste_files)
     {
         t_string searchPath = util::NormallizeSearchPath(path);
         WIN32_FIND_DATA finddata;
@@ -28,7 +28,7 @@ namespace ClearTmp
                 filesize.LowPart = finddata.nFileSizeLow;
                 filesize.HighPart = finddata.nFileSizeHigh;
 
-                WasteFile file;
+                Archive file;
                 file.FullName(searchPath + finddata.cFileName);
                 file.Size(filesize.QuadPart);
 

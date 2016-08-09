@@ -57,14 +57,16 @@ int LoadUtf8File(const t_string& file_name, vector<t_string>& suffixs)
     ifs.close();
     return 1;
 }
-
 #undef RUN_TEST
+
 #ifndef RUN_TEST
 unique_ptr<Cleanner> gcleanner;
 
 void Usage();
 
-int main(int argc, TCHAR** argv)
+vector<t_string> default_suffixs{ TEXT(".clw"), TEXT(".plg"), TEXT(".ncb"), TEXT(".opt"), TEXT(".aps") };
+
+int _tmain(int argc, TCHAR** argv)
 {
     shared_ptr<IFilter> filter;
     shared_ptr<IAction> action;
@@ -72,13 +74,18 @@ int main(int argc, TCHAR** argv)
     if (argc == 3)
     {
         vector<t_string> suffixs;
-        if (!LoadUtf8File(argv[3], suffixs))
+        t_string opt = argv[2];
+        if (_tcsicmp(argv[2], TEXT("/d")) == 0)
+        {
+            suffixs = default_suffixs;
+        }
+        else if (!LoadUtf8File(argv[3], suffixs))
         {
             return 2;
         }
 
-        filter = make_shared<ExtFilter>();
-        shared_ptr<IAction> inner_action = make_shared<EraseAction>();
+        filter = make_shared<ExtFilter>(suffixs);
+        auto inner_action = make_shared<EraseAction>();
 
         std::locale loc("");
         std::wcout.imbue(loc);
@@ -96,10 +103,8 @@ int main(int argc, TCHAR** argv)
 
     gcleanner = make_unique<Cleanner>(filter);
 
-    gcleanner->Clean(argv[2], action);
-
-    system("pause");
-
+    gcleanner->Clean(argv[1], action);
+    
     return 0;
 }
 
@@ -126,20 +131,19 @@ int main()
     return 0;
 }
 
-TEST(WasteFile, ctor)
+TEST(Archive, ctor)
 {
-    WasteFile wf(TEXT("D:\\1.txt"), 10);
+    Archive wf(TEXT("D:\\1.txt"), 10);
     CHECK(wf.Name().compare(TEXT("1.txt")) == 0);
     CHECK(wf.Ext().compare(TEXT(".txt")) == 0);
 }
 
 
 TEST(ExtFilter, ctor)
-{
-    //ExtFilter ef{ TEXT(".clw"), TEXT(".plg"), TEXT(".ncb"), TEXT(".opt") };
-    //auto bl = ef.Blacklist();
+{    
     vector<t_string> list{ TEXT(".clw"), TEXT(".plg"), TEXT(".ncb"), TEXT(".opt") };
     ExtFilter ef(list);
+    auto bl = ef.Blacklist();
     /*
     for each (auto var in bl)
     {
@@ -154,7 +158,7 @@ TEST(ExtFilter, func)
 {
     vector<t_string> list{ TEXT(".clw"), TEXT(".plg"), TEXT(".ncb"), TEXT(".opt") };
     ExtFilter ef(list);
-    WasteFile wf;
+    Archive wf;
     wf.FullName(TEXT("D:\\abc.cpp"));
 
     CHECK(!ef.Match(wf));
@@ -166,7 +170,7 @@ TEST(ExtFilter, func)
 TEST(EraseAction, func)
 {
     shared_ptr<IAction> act = make_shared<EraseAction>();
-    WasteFile wf(TEXT("D:\\1.txt"), 10);
+    Archive wf(TEXT("D:\\1.txt"), 10);
     try
     {
         bool erased = act->Act(wf);
@@ -183,7 +187,7 @@ TEST(EraseAction, func)
 TEST(Scanner, func)
 {
     Scanner ascanner;
-    vector<WasteFile> files;
+    vector<Archive> files;
     ascanner.Wildcards(TEXT("*.*"));
     ascanner.Traverse(TEXT("d:\\Code\\Projects\\ClearTmp\\"), files);
 

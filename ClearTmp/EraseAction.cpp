@@ -3,7 +3,7 @@
 
 namespace ClearTmp {
   
-    bool EraseAction::Act(const WasteFile & waste_file)
+    bool EraseAction::Act(const Archive & waste_file)
     {
         bool deleted = false;
         try

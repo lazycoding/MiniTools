@@ -15,7 +15,7 @@ namespace ClearTmp {
         const std::vector<t_string>& Blacklist() const;
 
         // Í¨¹ý IFilter ¼Ì³Ð
-        virtual bool Match(const WasteFile &) override;
+        virtual bool Match(const Archive &) override;
 
     private:
         std::vector<t_string> black_list_;        

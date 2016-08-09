@@ -4,7 +4,7 @@
 
 namespace ClearTmp {
 
-    Logger::Logger(std::basic_ostream<TCHAR>& output, std::shared_ptr<IAction>& decorated)
+    Logger::Logger(std::basic_ostream<TCHAR>& output,const std::shared_ptr<IAction>& decorated)
         :decorated_(decorated), output_(output), logger_size_(0.0)
     {
     }
@@ -12,28 +12,28 @@ namespace ClearTmp {
 
     Logger::~Logger()
     {
-        output_ << TEXT("Total Erase: ") << logger_size_ / 1024.0 << TEXT("KB.") << std::endl;
+        output_ << TEXT("Total Erase: ") << logger_size_ << TEXT("KB.") << std::endl;
     }
 
-    bool Logger::Act(const WasteFile & waste_file)
+    bool Logger::Act(const Archive & file)
     {
         std::locale loc("");
         output_.imbue(loc);
-        output_ << TEXT("prepare to action:\r\n")
-            << waste_file.FullName() << TEXT(" ")
-            << waste_file.Ext() << TEXT(" ")
-            << waste_file.Size() << std::endl;
+        output_ << TEXT("prepare to action:")
+            << file.FullName() << TEXT(" ")
+            << file.Ext() << TEXT(" ")
+            << file.Size() << std::endl;
         bool result = false;
         try
         {
             if (decorated_)
             {
-                result = decorated_->Act(waste_file);
+                result = decorated_->Act(file);
             }
 
             if (result)
             {
-                logger_size_ += waste_file.Size() / 1024.0;
+                logger_size_ += file.Size() / 1024.0;
             }
         }
         catch (const std::exception& except)

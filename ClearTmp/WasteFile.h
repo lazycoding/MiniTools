@@ -2,17 +2,17 @@
 #pragma once
 namespace ClearTmp
 {
-    class WasteFile
+    class Archive
     {
     public:
-        WasteFile() :size_(0) {}
+        Archive() :size_(0) {}
 
-        WasteFile(const t_string& full_name, __int64 size)
+        Archive(const t_string& full_name, __int64 size)
             :full_name_(full_name), size_(size)
         {
             ParseNameAndExt();
         }
-        ~WasteFile() = default;
+        ~Archive() = default;
 
         const t_string& FullName() const
         {

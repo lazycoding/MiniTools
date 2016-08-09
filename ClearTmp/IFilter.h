@@ -6,7 +6,7 @@ namespace ClearTmp {
     public:
         virtual ~IFilter() = default;
         IFilter() = default;
-        virtual bool Match(const WasteFile&) = 0;
+        virtual bool Match(const Archive&) = 0;
 
     };
 }

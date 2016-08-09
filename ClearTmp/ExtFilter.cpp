@@ -14,7 +14,7 @@ namespace ClearTmp
         return black_list_;
     }
 
-    bool ExtFilter::Match(const WasteFile & wf)
+    bool ExtFilter::Match(const Archive & wf)
     {
         if (black_list_.empty())
         {

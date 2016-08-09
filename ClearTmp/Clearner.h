@@ -19,7 +19,7 @@ namespace ClearTmp
         bool Clean(const t_string& path, const std::shared_ptr<IAction>& action);
 
     private:
-        std::vector<WasteFile> waste_files_;
+        std::vector<Archive> waste_files_;
         std::shared_ptr<Scanner> scanner_;        
     };
 }

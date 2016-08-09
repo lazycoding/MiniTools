@@ -19,7 +19,7 @@ namespace ClearTmp
         Scanner(const Scanner& other) = delete;
         const Scanner& operator=(const Scanner& rhs) = delete;
         
-        int Traverse(const t_string & path, std::vector<WasteFile>& waste_files);
+        int Traverse(const t_string & path, std::vector<Archive>& waste_files);
 
         void Wildcards(const t_string& wildcards);
     private:

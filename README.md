@@ -1,4 +1,7 @@
-# ClearTmp
+#MiniTools
+  一些为了方便使用的小工具程序集
+
+## ClearTmp
 为了清理大量vc6工程中的临时文件而编写
 
 1.已完成：  

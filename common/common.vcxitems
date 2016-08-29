@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{45d41acc-2c3c-43d2-bc10-02aa73ffc7c7}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Clearner.cpp">
+      <PrecompiledHeaderFile>stlinc.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EraseAction.cpp">
+      <PrecompiledHeaderFile>stlinc.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ExtFilter.cpp">
+      <PrecompiledHeaderFile>stlinc.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Logger.cpp">
+      <PrecompiledHeaderFile>stlinc.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Scanner.cpp">
+      <PrecompiledHeaderFile>stlinc.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)util.cpp">
+      <PrecompiledHeaderFile>stlinc.h</PrecompiledHeaderFile>
+      <FileType>CppCode</FileType>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Clearner.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EraseAction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ExtFilter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IAction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IFilter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Logger.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Scanner.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Archive.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)stlinc.h" />
+  </ItemGroup>
+</Project>

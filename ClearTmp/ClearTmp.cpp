@@ -11,7 +11,7 @@
 #include <codecvt>
 #include <sstream>
 using namespace std;
-using namespace ClearTmp;
+using namespace Common;
 
 
 int LoadUtf8File(const t_string& file_name, vector<t_string>& suffixs)

@@ -27,30 +27,6 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Clearner.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="WasteFile.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="IAction.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Scanner.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="IFilter.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ExtFilter.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="EraseAction.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Logger.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\CppUnitLite_stl\Failure.h">
       <Filter>Cppunitlite</Filter>
     </ClInclude>
@@ -77,21 +53,6 @@
     <ClCompile Include="ClearTmp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Clearner.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ExtFilter.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="EraseAction.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Logger.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Scanner.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\CppUnitLite_stl\Test.cpp">
       <Filter>Cppunitlite</Filter>
     </ClCompile>
@@ -100,9 +61,6 @@
     </ClCompile>
     <ClCompile Include="..\CppUnitLite_stl\TestResult.cpp">
       <Filter>Cppunitlite</Filter>
-    </ClCompile>
-    <ClCompile Include="util.cpp">
-      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

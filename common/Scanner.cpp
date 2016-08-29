@@ -1,8 +1,9 @@
-#include "stdafx.h"
+#include "stlinc.h"
 #include "Scanner.h"
 #include "IFilter.h"
+
 using namespace std;
-namespace ClearTmp 
+namespace Common
 {
     
     int Scanner::Traverse(const t_string & path, std::vector<Archive>& waste_files)

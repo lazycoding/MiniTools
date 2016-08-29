@@ -1,7 +1,7 @@
 #pragma once
 #include "IFilter.h"
 #include  <initializer_list>
-namespace ClearTmp {
+namespace Common {
     class ExtFilter : public IFilter 
     {
     public:

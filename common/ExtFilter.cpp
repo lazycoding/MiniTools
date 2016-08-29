@@ -1,7 +1,7 @@
-#include "stdafx.h"
+#include "stlinc.h"
 #include "ExtFilter.h"
 #include <iterator>
-namespace ClearTmp
+namespace Common
 {
 
     ExtFilter::ExtFilter(const std::vector<t_string>& black_list)

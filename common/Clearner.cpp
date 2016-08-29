@@ -1,8 +1,8 @@
-#include "stdafx.h"
+#include "stlinc.h"
 #include "Clearner.h"
 #include "Scanner.h"
 #include "IAction.h"
-namespace ClearTmp 
+namespace Common
 {
     Cleanner::Cleanner()
     {

@@ -1,6 +1,5 @@
-#include "stdafx.h"
 #pragma once
-namespace ClearTmp
+namespace Common
 {
     class Archive
     {

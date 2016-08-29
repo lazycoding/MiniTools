@@ -55,6 +55,7 @@
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
+    <Import Project="..\common\common.vcxitems" Label="Shared" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -150,17 +151,9 @@
     <ClInclude Include="..\CppUnitLite_stl\TestHarness.h" />
     <ClInclude Include="..\CppUnitLite_stl\TestRegistry.h" />
     <ClInclude Include="..\CppUnitLite_stl\TestResult.h" />
-    <ClInclude Include="Clearner.h" />
     <ClInclude Include="ClearTmp.h" />
-    <ClInclude Include="EraseAction.h" />
-    <ClInclude Include="ExtFilter.h" />
-    <ClInclude Include="IAction.h" />
-    <ClInclude Include="IFilter.h" />
-    <ClInclude Include="Logger.h" />
-    <ClInclude Include="Scanner.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="WasteFile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\CppUnitLite_stl\Test.cpp">
@@ -175,19 +168,13 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Clearner.cpp" />
     <ClCompile Include="ClearTmp.cpp" />
-    <ClCompile Include="EraseAction.cpp" />
-    <ClCompile Include="ExtFilter.cpp" />
-    <ClCompile Include="Logger.cpp" />
-    <ClCompile Include="Scanner.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="util.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,7 @@
-#include "stdafx.h"
+#include "stlinc.h"
 #include "EraseAction.h"
 
-namespace ClearTmp {
+namespace Common {
   
     bool EraseAction::Act(const Archive & waste_file)
     {
@@ -17,10 +17,6 @@ namespace ClearTmp {
         catch (...)
         {
             t_string log = util::FormatErrorMessage();
-            //t_string log = TEXT("Erase file ");
-            //log += waste_file.FullName();
-            //log += TEXT(" :");
-            //log += error_message;
 
             std::string mbslog;
 #ifdef _UNICODE            

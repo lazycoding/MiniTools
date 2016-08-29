@@ -1,6 +1,6 @@
 #pragma once
-#include "WasteFile.h"
-namespace ClearTmp
+#include "Archive.h"
+namespace Common
 {
     class IAction
     {

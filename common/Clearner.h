@@ -1,8 +1,8 @@
 #pragma once
-#include "WasteFile.h"
+#include "Archive.h"
 
 
-namespace ClearTmp
+namespace Common
 {
     class Scanner;
     class IFilter;

@@ -1,8 +1,8 @@
-#include "stdafx.h"
+#include "stlinc.h"
 #include "Logger.h"
 
 
-namespace ClearTmp {
+namespace Common {
 
     Logger::Logger(std::basic_ostream<TCHAR>& output,const std::shared_ptr<IAction>& decorated)
         :decorated_(decorated), output_(output), logger_size_(0.0)

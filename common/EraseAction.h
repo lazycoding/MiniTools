@@ -1,7 +1,7 @@
 #pragma once
 #include "IAction.h"
 
-namespace ClearTmp {
+namespace Common {
     class EraseAction :public IAction
     {
         // Í¨¹ý IAction ¼Ì³Ð

@@ -1,7 +1,7 @@
 #pragma once
 #include "IAction.h"
 #include <iosfwd>
-namespace ClearTmp
+namespace Common
 {
     class Logger:public IAction
     {

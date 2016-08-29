@@ -57,7 +57,8 @@ int LoadUtf8File(const t_string& file_name, vector<t_string>& suffixs)
     ifs.close();
     return 1;
 }
-#undef RUN_TEST
+
+//#undef RUN_TEST
 
 #ifndef RUN_TEST
 unique_ptr<Cleanner> gcleanner;
@@ -119,7 +120,7 @@ void Usage()
 
 
 #ifdef RUN_TEST
-#include "../CppUnitLite_stl/TestHarness.h"
+#include "../CppUnitLite/TestHarness.h"
 #include "Scanner.h"
 #include "ClearTmp.h"
 

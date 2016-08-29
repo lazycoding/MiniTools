@@ -7,10 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClearTmp", "ClearTmp\ClearT
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common", "common\common.vcxitems", "{45D41ACC-2C3C-43D2-BC10-02AA73FFC7C7}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppUnitLite", "CppUnitLite\CppUnitLite.vcxitems", "{6DAFC42D-E83D-44A8-86AA-A0D8B67FD29C}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		common\common.vcxitems*{45d41acc-2c3c-43d2-bc10-02aa73ffc7c7}*SharedItemsImports = 9
+		CppUnitLite\CppUnitLite.vcxitems*{6dafc42d-e83d-44a8-86aa-a0d8b67fd29c}*SharedItemsImports = 9
 		common\common.vcxitems*{f3751f89-5d6c-4994-9218-ffed7976c92b}*SharedItemsImports = 4
+		CppUnitLite\CppUnitLite.vcxitems*{f3751f89-5d6c-4994-9218-ffed7976c92b}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

@@ -6,7 +6,7 @@ using namespace std;
 namespace Common
 {
     
-    int Scanner::Traverse(const t_string & path, std::vector<Archive>& waste_files)
+    int Scanner::Traverse(const t_string & path, std::vector<Archive>& archives)
     {
         t_string searchPath = util::NormallizeSearchPath(path);
         WIN32_FIND_DATA finddata;
@@ -21,7 +21,7 @@ namespace Common
             else if (finddata.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
             {
                 t_string subsearch = searchPath + finddata.cFileName;
-                Traverse(subsearch, waste_files);                
+                Traverse(subsearch, archives);                
             }
             else
             {
@@ -35,7 +35,7 @@ namespace Common
 
                 if (!filter_ || filter_->Match(file))
                 {
-                    waste_files.push_back(file);
+                    archives.push_back(file);
                 }                
             }                    
 

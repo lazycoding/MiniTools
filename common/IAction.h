@@ -6,6 +6,6 @@ namespace Common
     {
     public:
         virtual ~IAction() = default;
-        virtual bool Act(const Archive& waste_file) = 0;
+        virtual bool Act(const Archive& archive) = 0;
     };
 }

@@ -20,12 +20,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EraseAction.cpp">
       <PrecompiledHeaderFile>stlinc.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ExifReader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ExtFilter.cpp">
       <PrecompiledHeaderFile>stlinc.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Logger.cpp">
       <PrecompiledHeaderFile>stlinc.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MoveAction.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scanner.cpp">
       <PrecompiledHeaderFile>stlinc.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -37,12 +39,16 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Clearner.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EraseAction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Exif.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ExifReader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ExtFilter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IFilter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Logger.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MoveAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scanner.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Archive.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stlinc.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)strformat.h" />
   </ItemGroup>
 </Project>

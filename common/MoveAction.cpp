@@ -2,6 +2,7 @@
 #include "stlinc.h"
 #include "MoveAction.h"
 #include <Windows.h>
+#include <ShlObj.h>
 namespace Common
 {	
 	DWORD Callback(LARGE_INTEGER TotalFileSize,
@@ -23,21 +24,47 @@ namespace Common
 		return PROGRESS_QUIET;
 	}
 
-	MoveAction::MoveAction(const std::wstring & destDirectory)
-		:dest_directory_(destDirectory), orignal_reserved_(true)
+	std::wstring ParseDir(const std::wstring& path)
 	{
+		auto result = path.rfind(L'\\');
+		if (result != std::wstring::npos)
+		{		
+			return path.substr(0, result);
+		}
+		return L"";
+	}
 
+	MoveAction::MoveAction(const std::wstring & destDirectory)
+		:dest_path_(destDirectory), orignal_reserved_(true)
+	{
+		dest_dir_ = ParseDir(destDirectory);
 	}
 	void MoveAction::ReserveOrignal(bool reserved)
 	{
 		orignal_reserved_ = reserved;
 	}
 
+	void MoveAction::Path(const std::wstring & path)
+	{
+		dest_path_ = path;
+
+		dest_dir_ = ParseDir(path);
+	}
+
 	bool MoveAction::Act(const Archive & archive)
 	{
-		int ret = CopyFileEx(archive.FullName().c_str(), dest_directory_.c_str(), (LPPROGRESS_ROUTINE)Callback, this, NULL, 0);
-		if (!ret)
+		if (!dest_dir_.empty())
 		{
+			int create_dir = SHCreateDirectory(NULL, dest_dir_.c_str());
+			if (create_dir != ERROR_SUCCESS)
+			{
+				std::wstring error = util::FormatErrorMessage();
+				return false;
+			}
+		}
+		int ret = CopyFileEx(archive.FullName().c_str(), dest_path_.c_str(), (LPPROGRESS_ROUTINE)Callback, this, NULL, 0);
+		if (!ret)
+		{			
 			std::wstring errormessage = util::FormatErrorMessage();
 			return false;
 		}

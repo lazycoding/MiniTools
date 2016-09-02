@@ -14,10 +14,13 @@ namespace Common
 
 		void ReserveOrignal(bool reserved);
 
+		void Path(const std::wstring& path);
+
 		// Í¨¹ý IAction ¼Ì³Ð
 		virtual bool Act(const Archive & archive) override;		
 	private:
-		std::wstring dest_directory_;
+		std::wstring dest_path_;
+		std::wstring dest_dir_;
 		bool orignal_reserved_;
 		
 		friend DWORD Callback(LARGE_INTEGER TotalFileSize,
